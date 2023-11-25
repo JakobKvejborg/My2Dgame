@@ -1,3 +1,9 @@
+/**
+ * Author: Jakob Kvejborg
+ * 2023
+ * note that a lot of this code is static (like run() KeyListener class etc.)
+ */
+
 package main;
 
 import javax.swing.*;
@@ -18,7 +24,7 @@ public class Main {
         window.setVisible(true);
 
         gamePanel.startGameThread();
-        System.out.println("hello delete this");
+
 
     }
 }
