@@ -2,6 +2,9 @@
 
 package main;
 
+import entity.Player;
+import tiles.TileManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +13,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTitleSize = 16; // 16x16 title pixlels
     final int scale = 3;
 
-    final int tileSize = originalTitleSize * scale; // 48x48 tile
+    public final int tileSize = originalTitleSize * scale; // 48x48 tile
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     final int screenWitdth = tileSize * maxScreenCol;
@@ -19,13 +22,16 @@ public class GamePanel extends JPanel implements Runnable {
     // FPS:
     int FPS = 60;
 
+    // this initiates all the classes:
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    Player player = new Player(this, keyH);
 
-    // Set player's default position:
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4; // 4 pixels
+//    // Set player's default position:
+//    int playerX = 100;
+//    int playerY = 100;
+//    double playerSpeed = 4; // 4 pixels
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWitdth, screenHeight));
@@ -40,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
+    // THIS IS ONE WAY OF SHOWING 60FPS
 //    @Override
 //    public void run() { // this is the game loop
 //
@@ -78,34 +85,35 @@ public class GamePanel extends JPanel implements Runnable {
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
+        long timer = 0;
+        int drawCount = 0;
 
         while (gameThread != null) {
 
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
-
+            timer += (currentTime - lastTime);
             lastTime = currentTime;
 
             if (delta >= 1) {
                 update();
                 repaint();
                 delta--;
+                drawCount++;
             }
+            // FPS:
+            if (timer >= 1000000000) {
+                System.out.println("FPS: " + drawCount);
+                drawCount = 0;
+                timer = 0;
+            }
+
         }
 
     }
 
     public void update() {
-
-        if (keyH.upPressed == true) {
-            playerY -= playerSpeed;
-        } else if (keyH.downPressed == true) {
-            playerY += playerSpeed;
-        } else if (keyH.leftPressed) { // same as == true
-            playerX -= playerSpeed;
-        } else if (keyH.rightPressed) {
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
 
@@ -113,10 +121,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        tileM.draw(g2); // this has to be before player, because of layers
+
+        player.draw(g2);
+
         g2.dispose();
     }
 }
