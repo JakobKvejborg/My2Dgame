@@ -46,31 +46,55 @@ public class Player extends Entity {
         }
     }
 
-    public void update() {
-        if (keyH.upPressed) {
-            direction = "up";
-            y -= speed;
-        } else if (keyH.downPressed) {
-            direction = "down";
-            y += speed;
-        } else if (keyH.leftPressed) { // same as == true
-            direction = "left";
-            x -= speed;
-        } else if (keyH.rightPressed) {
-            direction = "right";
-            x += speed;
-        }
 
-        spriteCounter++;
-        if (spriteCounter > 12) { // character image changes every 12 frames, changes how fast the walking animation looks
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 1;
+    public void update() {
+        // This line makes the player stand still when not moving:
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+
+            // Increase the speed when shift is pressed (sprinting)
+            if (keyH.shiftPressed) {
+                if (keyH.upPressed) {
+                    direction = "up";
+                    y -= (speed + 2); // Sprinting speed, here multiplied by 2 for example
+                } else if (keyH.downPressed) {
+                    direction = "down";
+                    y += (speed + 2);
+                } else if (keyH.leftPressed) {
+                    direction = "left";
+                    x -= (speed + 2);
+                } else if (keyH.rightPressed) {
+                    direction = "right";
+                    x += (speed + 2);
+                }
+            } else {
+                // Normal movement when shift is not pressed
+                if (keyH.upPressed) {
+                    direction = "up";
+                    y -= speed;
+                } else if (keyH.downPressed) {
+                    direction = "down";
+                    y += speed;
+                } else if (keyH.leftPressed) {
+                    direction = "left";
+                    x -= speed;
+                } else if (keyH.rightPressed) {
+                    direction = "right";
+                    x += speed;
+                }
             }
-            spriteCounter = 0;
+
+            spriteCounter++;
+            if (spriteCounter > 12) { // character image changes every 12 frames, changes how fast the walking animation looks
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
         }
     }
+
 
     public void draw(Graphics2D g2) {
 //        g2.setColor(Color.white);

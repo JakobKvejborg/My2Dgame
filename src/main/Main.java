@@ -4,6 +4,8 @@
  * note that a lot of this code is static (like run() KeyListener class etc.)
  */
 
+// 27/11 changes res folder to resources, adds animation standing still, adds sprinting, adds map
+
 package main;
 
 import javax.swing.*;
