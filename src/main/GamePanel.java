@@ -3,7 +3,7 @@
 package main;
 
 import entity.Player;
-import tiles.TileManager;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;

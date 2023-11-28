@@ -4,7 +4,7 @@
  * note that a lot of this code is static (like run() KeyListener class etc.)
  */
 
-// 27/11 changes res folder to resources, adds animation standing still, adds sprinting, adds map
+// 28/11 map reading is now working
 
 package main;
 
