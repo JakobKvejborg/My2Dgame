@@ -14,18 +14,28 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+
     // Constructor :
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2); // I believe this places the player in the middle of the screen
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        x = 100; // pixels
-        y = 100;
+        // old player position
+//        worldX = 100; // pixels. This is the players' position on the world map
+//        worldY = 100;
+        // new player position
+        worldX = gp.tileSize * 23; // players starting position on the world map
+        worldY = gp.tileSize * 21;
         speed = 4;
         direction = "down";
     }
@@ -55,31 +65,31 @@ public class Player extends Entity {
             if (keyH.shiftPressed) {
                 if (keyH.upPressed) {
                     direction = "up";
-                    y -= (speed + 2); // Sprinting speed, here multiplied by 2 for example
+                    worldY -= (speed + 2); // Sprinting speed, here multiplied by 2 for example
                 } else if (keyH.downPressed) {
                     direction = "down";
-                    y += (speed + 2);
+                    worldY += (speed + 2);
                 } else if (keyH.leftPressed) {
                     direction = "left";
-                    x -= (speed + 2);
+                    worldX -= (speed + 2);
                 } else if (keyH.rightPressed) {
                     direction = "right";
-                    x += (speed + 2);
+                    worldX += (speed + 2);
                 }
             } else {
                 // Normal movement when shift is not pressed
                 if (keyH.upPressed) {
                     direction = "up";
-                    y -= speed;
+                    worldY -= speed;
                 } else if (keyH.downPressed) {
                     direction = "down";
-                    y += speed;
+                    worldY += speed;
                 } else if (keyH.leftPressed) {
                     direction = "left";
-                    x -= speed;
+                    worldX -= speed;
                 } else if (keyH.rightPressed) {
                     direction = "right";
-                    x += speed;
+                    worldX += speed;
                 }
             }
 
@@ -137,7 +147,7 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null); // make screenX and screenY just x and y to make the player move freely instead of fixed camera
     }
 
 
