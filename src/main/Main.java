@@ -2,9 +2,10 @@
  * Author: Jakob Kvejborg
  * 2023
  * note that a lot of this code is static (like run() KeyListener class etc.)
+ * alt + 9 = github history
  */
 
-// 28/11 map reading is now working
+// 29/11 worldmap now working with minor graphical glitches
 
 package main;
 

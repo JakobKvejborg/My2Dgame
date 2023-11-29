@@ -61,7 +61,7 @@ public class TileManager {
             int col = 0; // MAYBE change to world TODO
             int row = 0;
 
-            while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
+            while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
                 String line = br.readLine();
 
                 while (col < gp.maxWorldCol) { // check if these should be named worldCol TODO
@@ -74,7 +74,8 @@ public class TileManager {
                 }
                 if (col == gp.maxWorldCol) {
                     col = 0;
-                    row++;                }
+                    row++;
+                }
             }
             br.close();
 
@@ -126,7 +127,12 @@ public class TileManager {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null); // grass tiles everywhere
+            // Rendering:
+            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                    worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            }
+
             worldCol++;
 
 
