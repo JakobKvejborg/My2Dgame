@@ -12,8 +12,8 @@ import java.io.InputStreamReader;
 public class TileManager {
 
     GamePanel gp;
-    Tile[] tile;
-    int mapTileNum[][];
+    public Tile[] tile;
+    public int mapTileNum[][];
 
 
     // constructor:
@@ -35,15 +35,18 @@ public class TileManager {
             // wall
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tilesImages/wall.png"));
+            tile[1].collision = true; // decides whether the tile has collision or not
             // water1
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tilesImages/water01.png"));
+            tile[2].collision = true;
             // earth
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tilesImages/earth.png"));
             // tree
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tilesImages/tree.png"));
+            tile[4].collision = true;
             // grass0
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tilesImages/grass00.png"));
@@ -58,13 +61,13 @@ public class TileManager {
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            int col = 0; // MAYBE change to world TODO
+            int col = 0;
             int row = 0;
 
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
                 String line = br.readLine();
 
-                while (col < gp.maxWorldCol) { // check if these should be named worldCol TODO
+                while (col < gp.maxWorldCol) {
                     String numbers[] = line.split(" "); //maybe String.split(" "); maybe String.split(String);
 
                     int num = Integer.parseInt(numbers[col]);
