@@ -3,9 +3,12 @@
  * 2023
  * note that a lot of this code is static (like run() KeyListener class etc.)
  * alt + 9 = github history
+ *
+ * @Version 18/12/2023
+ * @Since 26/11/2023
  */
 
-// 29/11 worldmap now working with minor graphical glitches
+// 18/12 adding objects
 
 package main;
 
@@ -26,6 +29,7 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        gamePanel.setUpGame();
         gamePanel.startGameThread();
 
 
