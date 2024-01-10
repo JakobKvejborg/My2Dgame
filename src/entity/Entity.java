@@ -11,6 +11,7 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea; // This is the middle of the char, makes sure it doesn't collide with tiles
+    public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
 
 }
